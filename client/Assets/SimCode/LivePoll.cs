@@ -10,12 +10,15 @@ public class LivePoll : MonoBehaviour {
 	public GameObject downstairs, upstairs;
 	public Text timeLabel;
 
-	// MODEL
-	String content = "";
+    public String linkCorpus = "https://raw.githubusercontent.com/HueyPretilaASMS/ComplexSystemModelling/master/log.txt";
+
+    // MODEL
+    String content = "";
 	float in_Down = 0, in_Up = 0;
 
 	// TIME
 	int sixOClock = 0, currentTime = 1800, currentOffset = 0;
+    int rawTime = 1080, hour = 18, minutes = 0;
 	float nextActionTime = 0.0f;
 	float period = 0.5f;
 
@@ -25,12 +28,23 @@ public class LivePoll : MonoBehaviour {
 	}
 
 	IEnumerator GetText() {
-		UnityWebRequest www = UnityWebRequest.Get("https://raw.githubusercontent.com/HueyPretilaASMS/ASMSSimulationHost/master/log.txt");
-		yield return www.Send();
+		UnityWebRequest www = UnityWebRequest.Get(linkCorpus);
+
+        yield return www.Send();
 
 		if(www.isNetworkError || www.isHttpError) {
-			Debug.Log(www.error);
-		}
+            Debug.Log(www.error);
+            Debug.Log("Using backup corpus.");
+
+            www = UnityWebRequest.Get("https://raw.githubusercontent.com/HueyPretilaASMS/ComplexSystemModelling/master/log.txt");
+            yield return www.Send();
+
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+            content = www.downloadHandler.text;
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+        }
 		else {
 			// Show results as text
 			Debug.Log(www.downloadHandler.text);
@@ -43,6 +57,7 @@ public class LivePoll : MonoBehaviour {
 		string[] anaphaseII = anaphaseI[0].Split(',');
 
 		int.TryParse (anaphaseII [1], out sixOClock);
+		int.TryParse (anaphaseII [2], out rawTime);
 	}
 	
 	// UPDATE
@@ -81,13 +96,17 @@ public class LivePoll : MonoBehaviour {
 			currentOffset++;
 			currentTime++;
 
+            hour = (int)Math.Floor((decimal)((rawTime/60)/2))*2;
+            minutes = rawTime - hour * 60;
+
 			// RENDER
 			downstairs.transform.localScale = 
 				new Vector3(1, 8*(in_Down/(in_Down + in_Up)), 1);
 			upstairs.transform.localScale = 
 				new Vector3(1, 8*(in_Up/(in_Down + in_Up)), 1);
 
-			timeLabel.text = currentTime.ToString();
-		} 
+            timeLabel.text = hour.ToString() + minutes.ToString();
+            rawTime++;
+        } 
 	}
 }
