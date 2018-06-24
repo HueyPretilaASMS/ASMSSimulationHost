@@ -1,0 +1,13 @@
+{
+"companyName": "DefaultCompany",
+"productName": "ASMSSimulator",
+"dataUrl": "Releases.data.unityweb",
+"asmCodeUrl": "Releases.asm.code.unityweb",
+"asmMemoryUrl": "Releases.asm.memory.unityweb",
+"asmFrameworkUrl": "Releases.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Light",
+"backgroundColor": "#FFFFFF"
+}
