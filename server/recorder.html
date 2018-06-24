@@ -7,52 +7,60 @@
 			h1 {
 				font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
 			}
+			#nav {
+				
+			}
+			button {
+				font-size: 70px;
+			}
 		</style>
 		
 		<script>
-			var now = new Date(),
-				then = new Date(
-					now.getFullYear(),
-					now.getMonth(),
-					now.getDate(),
-					0,0,0),
-				diff = now.getTime() - then.getTime();
-			
+			// JavaScript Document
 			function submitNewPerson (site, num) {
-				var i;
+				var now = new Date(), then = new Date(now.getFullYear(), now.getMonth(), now.getDate(),	0,0,0), diff = now.getTime() - then.getTime();
+				var i = 0;
+				
+				console.log(num);
+				document.getElementById('jeff').value = "";
+				
 				for (i = 0; i < num; i++) {
 					var seconds = new Date().getTime() / 1000;
-					document.getElementById('jeff').value = site + "," + Math.round(seconds) + "," Math.floor(diff/60000);
-					document.getElementById('form').submit();
+					document.getElementById('jeff').value += site + "," + Math.round(seconds) + "," + Math.floor(diff/60000)+";";
+					console.log(i + "nth iteration");
+					
 				}
+				document.getElementById('form').submit();
 			}
 		</script>
 	</head>
 
 	<body>
-		<iframe name="hiddenFrame" hidden></iframe>
-		<form id="form" method="POST" action="serverside_recorder.php" target="hiddenFrame">
-			<textarea id="jeff" name="data" hidden=""></textarea>
-			<h1>
-				WENT THROUGH THE DOORS
-			</h1>
-			<input value="1" style="font-size: 70px;" onclick="submitNewPerson ('in_ASMS',1)" type="button">
-			<input value="5" style="font-size: 70px;" onclick="submitNewPerson ('in_ASMS',5)" type="button">
-			<input value="10" style="font-size: 70px;" onclick="submitNewPerson ('in_ASMS',10)" type="button">
+		<div>
+			<iframe name="hiddenFrame" hidden></iframe>
+			<form id="form" method="POST" action="serverside_recorder.php" target="hiddenFrame">
+				<textarea id="jeff" name="data" hidden=""></textarea>
+				<h1>
+					WENT THROUGH THE DOORS
+				</h1>
+				<button value="1" onclick="submitNewPerson ('in_ASMS', 1)" type="button">1</button>
+				<button value="5" onclick="submitNewPerson ('in_ASMS', 5)" type="button">5</button>
+				<button value="10" onclick="submitNewPerson ('in_ASMS', 10)" type="button">10</button>
 
-			<h1>
-				WENT UPSTAIRS
-			</h1>
-			<input value="1" style="font-size: 70px;" onclick="submitNewPerson ('in_2',1)" type="button">
-			<input value="5" style="font-size: 70px;" onclick="submitNewPerson ('in_2',5)" type="button">
-			<input value="10" style="font-size: 70px;" onclick="submitNewPerson ('in_2',10)" type="button">
+				<h1>
+					WENT UPSTAIRS
+				</h1>
+				<button value="1" onclick="submitNewPerson ('in_2', 1)" type="button">1</button>
+				<button value="5" onclick="submitNewPerson ('in_2', 5)" type="button">5</button>
+				<button value="10" onclick="submitNewPerson ('in_2', 10)" type="button">10</button>
 
-			<h1>
-				WENT DOWNSTAIRS
-			</h1>
-			<input value="1" style="font-size: 70px;" onclick="submitNewPerson ('in_1,1')" type="button">
-			<input value="5" style="font-size: 70px;" onclick="submitNewPerson ('in_1,5')" type="button">
-			<input value="10" style="font-size: 70px;" onclick="submitNewPerson ('in_1,10')" type="button">
-		</form>
+				<h1>
+					WENT DOWNSTAIRS
+				</h1>
+				<button value="1" onclick="submitNewPerson ('in_1', 1)" type="button">1</button>
+				<button value="5" onclick="submitNewPerson ('in_1', 5)" type="button">5</button>
+				<button value="10" onclick="submitNewPerson ('in_1', 10)" type="button">10</button>
+			</form>
+		</div>
 	</body>
 </html>

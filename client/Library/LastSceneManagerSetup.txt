@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/SimpScene/On.unity
+- path: Assets/SimpScene/On_Prob.unity
   isLoaded: 1
   isActive: 1
