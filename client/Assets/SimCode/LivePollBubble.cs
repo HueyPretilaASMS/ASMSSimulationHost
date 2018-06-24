@@ -40,8 +40,9 @@ public class LivePollBubble : MonoBehaviour {
 
         if (Time.time > nextStep)
         {
-            nextStep = Time.time + period;
-            if (currentTime != livePoll.rawTime)
+            var timeRnd = new System.Random();
+            nextStep = Time.time + (float)timeRnd.Next(0, 30)/5;
+            if (Vector3.Distance(targettedState.position, transform.position) < 1)
             {
                 var rnd = new System.Random();
                 float p = (float)rnd.Next(0, 100) / 100;

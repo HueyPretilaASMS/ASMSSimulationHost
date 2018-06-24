@@ -43,7 +43,7 @@ namespace LivePoll
         // TIME
         public float hour = 18, minutes = 0, rawTime = 1080;
         float nextStep = 0.0f;
-        float period = 0.5f;
+        public float period = 0.5f;
         public int up = 1, down = 0;
 
         public PollProbability currentProbability;
@@ -171,9 +171,9 @@ namespace LivePoll
                     downstairs.text = down.ToString() + "%";
 
                     if (minutes > 9)
-                        timeLabel.text = hour.ToString() + minutes.ToString();
+                        timeLabel.text = hour.ToString() + ":" + minutes.ToString();
                     else
-                        timeLabel.text = hour.ToString() + "0" + minutes.ToString();
+                        timeLabel.text = hour.ToString() + ":0" + minutes.ToString();
                     rawTime++;
 
                 }
